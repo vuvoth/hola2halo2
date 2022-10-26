@@ -9,11 +9,10 @@ version = "0.1.0"
 name = "fibo1"
 path = "src/fibo1.rs"
 
+[[bin]]
+name = "function"
+path = "src/function.rs"
+
 [dependencies]
 halo2_proofs = { version = "0.2.0", features = ["dev-graph"]}
 plotters = { version = "0.3.0" }
-tabbycat = { version = "0.1", features = ["attributes"], optional = true }
-
-[target.'cfg(unix)'.dev-dependencies]
-pprof = { version = "0.8", features = ["criterion", "flamegraph"] } # MSRV 1.56
-

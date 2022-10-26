@@ -2,13 +2,20 @@ use std::marker::PhantomData;
 
 use halo2_proofs::{
     arithmetic::FieldExt,
-    circuit::{AssignedCell, Chip, Layouter, SimpleFloorPlanner, Value},
+    circuit::{AssignedCell, Layouter, SimpleFloorPlanner, Value},
     dev::MockProver,
     pasta::Fp,
     plonk::{Advice, Circuit, Column, ConstraintSystem, Error, Selector},
     poly::Rotation,
 };
 
+
+///
+/// |a  |b  |c  | selector
+/// |   |   |   | 
+/// 
+/// 
+/// constraints = selector * (a + b - c) == 0
 #[derive(Debug, Clone)]
 struct FiboConfig {
     pub advice: [Column<Advice>; 3],
@@ -177,7 +184,7 @@ fn main() {
     prover.assert_satisfied();
 
     use plotters::prelude::*;
-    let root = BitMapBackend::new("layout.png", (1024, 768)).into_drawing_area();
+    let root = BitMapBackend::new("./target/fibo1circuit.png", (1024, 768)).into_drawing_area();
     root.fill(&WHITE).unwrap();
     let root = root
         .titled("Fibo 1 Layout", ("sans-serif", 60))
